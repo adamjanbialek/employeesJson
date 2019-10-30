@@ -30,9 +30,28 @@ public class EmployeeData implements Runnable{
         }
     }
 
-    public void parseJson(String json) {
+    public List<Employee> parseJsonToObjects(String json) {
         JSONArray jsonArray = new JSONArray(json);
-        ObjectMapper objectMapper = new ObjectMapper();
+        int id;
+        String name;
+        int salary;
+        int employeeAge;
+        List<Employee> employeeList= new ArrayList<>();
+        for(int i=0; i<jsonArray.length();i++){
+            JSONObject person = jsonArray.getJSONObject(i);
+            name=person.getString("employee_name");
+            salary=person.getInt("employee_salary");
+            id=person.getInt("id");
+            employeeAge=person.getInt("employee_age");
+            Employee employee = new Employee();
+            employee.setId(id);
+            employee.setName(name);
+            employee.setSalary(salary);
+            employee.setEmployeeAge(employeeAge);
+            employeeList.add(employee);
+        }
+
+        return employeeList;
     }
 
     @Override
@@ -45,8 +64,13 @@ public class EmployeeData implements Runnable{
             e.printStackTrace();
         }
 
-        printJsonContent(response);
+//        printJsonContent(response);
 
-        parseJson(response);
+        List<Employee> employees = parseJsonToObjects(response);
+
+        for (Employee e: employees
+        ) {
+            System.out.println(e);
+        }
     }
 }
