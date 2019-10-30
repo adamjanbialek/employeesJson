@@ -7,10 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class EmployeeData implements Runnable{
 
@@ -55,9 +53,6 @@ public class EmployeeData implements Runnable{
         return employeeList;
     }
 
-    private void printEmployeesOverThirty(List<Employee> employees){
-        employees.stream().filter(e -> e.getEmployeeAge()>30).forEach(e-> System.out.println(e));
-    }
 
     @Override
     public void run() {
@@ -78,6 +73,9 @@ public class EmployeeData implements Runnable{
 //            System.out.println(e);
 //        }
 
-        printEmployeesOverThirty(employees);
+//        employees.stream().filter(e -> e.getEmployeeAge() > 30).forEach(System.out::println);
+
+        Collections.sort(employees, Comparator.comparing(Employee::getSalary));
+
     }
 }
