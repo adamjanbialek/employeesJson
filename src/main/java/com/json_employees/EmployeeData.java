@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class EmployeeData implements Runnable{
@@ -54,6 +55,10 @@ public class EmployeeData implements Runnable{
         return employeeList;
     }
 
+    private void printEmployeesOverThirty(List<Employee> employees){
+        employees.stream().filter(e -> e.getEmployeeAge()>30).forEach(e-> System.out.println(e));
+    }
+
     @Override
     public void run() {
         Connection connection = new Connection();
@@ -68,9 +73,11 @@ public class EmployeeData implements Runnable{
 
         List<Employee> employees = parseJsonToObjects(response);
 
-        for (Employee e: employees
-        ) {
-            System.out.println(e);
-        }
+//        for (Employee e: employees
+//        ) {
+//            System.out.println(e);
+//        }
+
+        printEmployeesOverThirty(employees);
     }
 }
