@@ -68,14 +68,16 @@ public class EmployeeData implements Runnable{
 
         List<Employee> employees = parseJsonToObjects(response);
 
-//        for (Employee e: employees
-//        ) {
-//            System.out.println(e);
-//        }
+
 
 //        employees.stream().filter(e -> e.getEmployeeAge() > 30).forEach(System.out::println);
 
-        Collections.sort(employees, Comparator.comparing(Employee::getSalary));
+//        Collections.sort(employees, Comparator.comparing(Employee::getSalary));
 
+        Collections.sort(employees, Comparator.comparing(Employee::getEmployeeAge).reversed());
+        for (Employee e: employees
+        ) {
+            System.out.println(e);
+        }
     }
 }
